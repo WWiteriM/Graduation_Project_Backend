@@ -1,6 +1,6 @@
 const express = require('express');
 const { authCheck, adminCheck } = require('../middlewares/auth');
-const { create, read, update, remove, list } = require('../controllers/category');
+const { create, read, update, remove, list, getSubs } = require('../controllers/category');
 
 const router = express.Router();
 
@@ -9,5 +9,6 @@ router.get('/categories', list);
 router.get('/category/:slug', read);
 router.put('/category/:slug', authCheck, adminCheck, update);
 router.delete('/category/:slug', authCheck, adminCheck, remove);
+router.get('/category/subs/:_id', getSubs);
 
 module.exports = router;

@@ -7,6 +7,15 @@ exports.create = async (req, res) => {
         await res.json(await new Product(req.body).save());
 
     } catch (err) {
-        res.status(400).send('Create product failed');
+        // res.status(400).send('Create product failed');
+       await res.status(400).json({
+            err: err.message,
+        });
     }
 };
+
+exports.read = async (req, res) => {
+    const products = await Product.findOne({});
+    await res.json(products);
+};
+

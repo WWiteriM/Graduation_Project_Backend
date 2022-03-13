@@ -1,4 +1,5 @@
 const Category = require('../models/category');
+const Sub = require('../models/sub');
 const slugify = require('slugify');
 
 exports.create = async (req, res) => {
@@ -41,4 +42,11 @@ exports.remove = async (req, res) => {
     } catch (err) {
         res.status(400).send('Delete category failed');
     }
+};
+
+exports.getSubs = async (req, res) => {
+    await Sub.find({ parent: req.params._id }).exec((err, subs) => {
+        if (err) res.status(400).send('Category does not have a subcategory');
+        res.json(subs);
+    });
 };
